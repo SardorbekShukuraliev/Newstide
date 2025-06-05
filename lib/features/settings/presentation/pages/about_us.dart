@@ -1,3 +1,4 @@
+import 'package:Newstide/core/strings/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/colors/color.dart';
@@ -32,37 +33,10 @@ class AboutUsPage extends StatelessWidget {
         ),
         body: Scrollbar(
           thumbVisibility: true,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: const Text(
-              '''
-Welcome to Newstide!
-
-We are a team of passionate developers, designers, and visionaries who believe in the power of digital tools to support mental health and personal growth. Our mission is to make emotional well-being accessible, modern, and intuitive for everyone.
-
-What we stand for:
-- Empathy-driven design: Every element in Newstide is built with care and compassion.
-- Data privacy: Your feelings and your information are yours. We don’t sell, trade, or misuse them.
-- Innovation with purpose: We’re not just building an app—we’re creating a companion that helps you face life’s storms.
-
-Why we started:
-We’ve all faced hard times. We know what it’s like to need support and not know where to turn. That’s why we built Newstide—to be a lighthouse for anyone sailing through darkness.
-
-Contact us:
-We love feedback, thoughts, and collaboration. Drop us a line anytime: support@updatss.com
-
-Thank you for being part of our journey.
-
-With care,  
-The Newstide Team
-              ''',
-              style: TextStyle(
-                fontSize: 16,
-                height: 1.6,
-                color: Colors.white,  // Белый цвет текста
-              ),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Text(AppStrings.about_us, style: TextStyle(color: Colors.white, fontSize: 16)),
             ),
-          ),
         ),
       ),
     );

@@ -54,7 +54,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black, // Изменил цвет фона на черный
+      backgroundColor: Colors.black,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
         child: Column(
@@ -71,12 +71,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       Image.asset(pages[index]['image']!, height: 250),
                       const SizedBox(height: 32),
                       Text(pages[index]['title']!,
-                          style: AppTextStyles.heading3(color: Colors.white)), //цвет текста
+                          style: AppTextStyles.heading3(color: Colors.white)),
                       const SizedBox(height: 12),
                       Text(
                         pages[index]['text']!,
                         style: AppTextStyles.LargeMedium(
-                            color: Colors.grey),  //цвет текста
+                            color: Colors.grey),
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -95,9 +95,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Use Terms', style: AppTextStyles.Mediumregular(color: Colors.white)), //цвет текста
+                Text('Use Terms', style: AppTextStyles.Mediumregular(color: Colors.white)),
                 const SizedBox(width: 12),
-                Text('Privacy Policy', style: AppTextStyles.Mediumregular(color: Colors.white)),//цвет текста
+                Text('Privacy Policy', style: AppTextStyles.Mediumregular(color: Colors.white)),
               ],
             ),
             const SizedBox(height: 24),
@@ -143,7 +143,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               child: Text(
                 AppStrings.GoToHomePage,
                 style:
-                AppTextStyles.heading5(color: AppColor.white), //цвет текста
+                AppTextStyles.heading5(color: AppColor.white),
               ),
             ),
           ],

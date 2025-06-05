@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/colors/color.dart';
 import '../../data/repositories/news_repository.dart';
 import '../bloc/news/news_bloc.dart';
+import '../bloc/news/news_event.dart';
+import '../bloc/news/news_state.dart';
 import '../widget/BreakingNewsCard.dart';
 import '../widget/PopularNewsGridItem.dart';
 import '../widget/SectionHeader.dart';
@@ -20,8 +22,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final PageController _breakingNewsPageController = PageController(viewportFraction: 0.85);
-  final int _breakingNewsCount = 6; // Ограничение для Breaking News
-  final int _popularNewsCount = 12; // Теперь загружаем 12 карточек популярных новостей
+  final int _breakingNewsCount = 6;
+  final int _popularNewsCount = 12;
 
   @override
   Widget build(BuildContext context) {

@@ -13,8 +13,8 @@ class NewsModel extends Equatable {
 
   factory NewsModel.fromJson(Map<String, dynamic> json) {
     return NewsModel(
-      title: json['title'] ?? 'Без названия',
-      content: json['description'] ?? 'Нет описания',
+      title: json['title'] ?? 'no name',
+      content: json['description'] ?? 'no discription',
       imageUrl: json['urlToImage'] ?? '',
     );
   }

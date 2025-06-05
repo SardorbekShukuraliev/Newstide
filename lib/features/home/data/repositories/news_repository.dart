@@ -17,10 +17,10 @@ class NewsRepository {
         List articles = response.data['articles'] ?? [];
         return articles.map((json) => NewsModel.fromJson(json)).toList();
       } else {
-        throw Exception('Ошибка загрузки новостей: ${response.statusCode}');
+        throw Exception('error fetching news: ${response.statusCode}');
       }
     } catch (e) {
-      throw Exception('Ошибка подключения к API: $e');
+      throw Exception('error in connection api: $e');
     }
   }
 
@@ -36,10 +36,10 @@ class NewsRepository {
         List articles = response.data['articles'] ?? [];
         return articles.map((json) => NewsModel.fromJson(json)).toList();
       } else {
-        throw Exception('Ошибка поиска новостей: ${response.statusCode}');
+        throw Exception('error fetching news: ${response.statusCode}');
       }
     } catch (e) {
-      throw Exception('Ошибка поиска: $e');
+      throw Exception(' search error: $e');
     }
   }
 }

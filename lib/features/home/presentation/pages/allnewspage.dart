@@ -4,14 +4,14 @@ import 'package:go_router/go_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../data/repositories/news_repository.dart';
 import '../bloc/news/news_bloc.dart';
+import '../bloc/news/news_event.dart';
+import '../bloc/news/news_state.dart';
 import '../widget/bottomnavbar.dart';
 import '../widget/shimmercard.dart';
 
 class AllNewsPage extends StatelessWidget {
   final String title;
-
   const AllNewsPage({super.key, required this.title});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,90 +29,78 @@ class AllNewsPage extends StatelessWidget {
           child: BlocBuilder<NewsBloc, NewsState>(
             builder: (context, state) {
               if (state is NewsLoading) {
-                // ✅ Показываем shimmer при загрузке
                 return ListView.builder(
-                  itemCount: 10, // Заглушка для 10 загружаемых новостей
+                  itemCount: 10,
                   itemBuilder: (context, index) => const NewsShimmerCard(),
                 );
               } else if (state is NewsError) {
                 return Center(child: Text(state.message, style: const TextStyle(color: Colors.white)));
               } else if (state is NewsLoaded) {
                 return ListView.builder(
-                  itemCount: state.news.length + (state.hasReachedMax ? 0 : 1),
+                  itemCount: state.news.length > 20 ? 20 : state.news.length,
                   itemBuilder: (context, index) {
-                    if (index < state.news.length) {
-                      final news = state.news[index];
-                      return GestureDetector(
-                        onTap: () => context.push('/news_details', extra: news),
-                        child: Container(
-                          margin: const EdgeInsets.only(bottom: 16),
-                          height: 240,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
-                          child: Stack(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: CachedNetworkImage(
-                                  imageUrl: news.imageUrl,
-                                  width: double.infinity,
-                                  height: 240,
-                                  fit: BoxFit.cover,
-                                  errorWidget: (context, url, error) => const Center(
-                                    child: Icon(Icons.broken_image, color: Colors.white, size: 50),
-                                  ),
+                    final news = state.news[index];
+                    return GestureDetector(
+                      onTap: () => context.push('/news_details', extra: news),
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 16),
+                        height: 240,
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: CachedNetworkImage(
+                                imageUrl: news.imageUrl,
+                                width: double.infinity,
+                                height: 240,
+                                fit: BoxFit.cover,
+                                errorWidget: (context, url, error) => const Center(
+                                  child: Icon(Icons.broken_image, color: Colors.white, size: 50),
                                 ),
                               ),
-                              Positioned.fill(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [Colors.transparent, Colors.black.withOpacity(0.9)],
-                                    ),
-                                    borderRadius: BorderRadius.circular(16),
+                            ),
+                            Positioned.fill(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [Colors.transparent, Colors.black.withOpacity(0.9)],
                                   ),
+                                  borderRadius: BorderRadius.circular(16),
                                 ),
                               ),
-                              Positioned(
-                                bottom: 12,
-                                left: 12,
-                                right: 12,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(news.title,
-                                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      news.content,
-                                      style: const TextStyle(color: Colors.white70, fontSize: 14),
+                            ),
+                            Positioned(
+                              bottom: 12,
+                              left: 12,
+                              right: 12,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(news.title,
+                                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
                                       maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                ),
+                                      overflow: TextOverflow.ellipsis),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    news.content,
+                                    style: const TextStyle(color: Colors.white70, fontSize: 14),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      );
-                    } else if (!state.hasReachedMax) {
-                      return Center(
-                        child: ElevatedButton(
-                          onPressed: () => context.read<NewsBloc>().add(SearchMoreNews(title)),
-                          child: const Text('Show More'),
-                        ),
-                      );
-                    } else {
-                      return const SizedBox.shrink();
-                    }
+                      ),
+                    );
                   },
                 );
               }
-              return const Center(child: Text("Нет данных", style: TextStyle(color: Colors.white)));
+              return const Center(child: Text("Connection Error", style: TextStyle(color: Colors.white)));
             },
           ),
         ),
