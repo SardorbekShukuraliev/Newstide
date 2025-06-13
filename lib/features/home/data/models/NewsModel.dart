@@ -1,24 +1,17 @@
-import 'package:equatable/equatable.dart';
+import '../../domain/entities/news_entity.dart';
 
-class NewsModel extends Equatable {
-  final String title;
-  final String content;
-  final String imageUrl;
-
+class NewsModel extends NewsEntity {
   const NewsModel({
-    required this.title,
-    required this.content,
-    required this.imageUrl,
+    required super.title,
+    required super.content,
+    required super.imageUrl,
   });
 
   factory NewsModel.fromJson(Map<String, dynamic> json) {
     return NewsModel(
       title: json['title'] ?? 'no name',
-      content: json['description'] ?? 'no discription',
+      content: json['description'] ?? 'no description',
       imageUrl: json['urlToImage'] ?? '',
     );
   }
-
-  @override
-  List<Object?> get props => [title, content, imageUrl];
 }

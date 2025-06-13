@@ -1,6 +1,4 @@
-import 'package:equatable/equatable.dart';
-
-class NewsEntity extends Equatable {
+class NewsEntity{
   final String title;
   final String content;
   final String imageUrl;
@@ -10,7 +8,4 @@ class NewsEntity extends Equatable {
     required this.content,
     required this.imageUrl,
   });
-
-  @override
-  List<Object?> get props => [title, content, imageUrl];
 }
